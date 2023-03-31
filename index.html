@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel='stylesheet/less' type="text/x-less" href="./loading.less">
+  <style>
+    html,body{
+      margin: 0;
+      height: 100vh;
+      width: 100vw;
+    }
+  </style>
+  <script>
+    less = {
+      env: "development",
+      async: false,
+      fileAsync: false,
+      poll: 1000,
+      functions: {},
+      dumpLineNumbers: "comments",
+      relativeUrls: false/* ,
+      rootpath: ":/a.com/" */
+    };
+  </script>
+  <script src="./less.js"></script>
+  <!-- <script>less.watch();</script> -->
+  
+</head>
+<body style="display:flex; flex-direction: column ;align-items: center;">
+    <h1 style="text-align: center;">Loading</h1>
+    <img src="./loading_24.gif" alt="" style='width:40px;'>
+    <div style="display:flex; justify-content: center; align-items: center; flex:1">
+      <div class="loading">
+        <div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    </div>
+    
+</body>
+</html>

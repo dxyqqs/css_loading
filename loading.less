@@ -1,0 +1,103 @@
+@size: 40px;
+@small_w: 3px;
+@small_h: 10px;
+@count: 12;
+@r: 14px;
+@name: laoding-animate;
+@duration:.8s;
+
+.position (@n, @count, @r, @width_outer, @width_inner, @height_outer, @height_inner) {
+  @radian: ((@n - 1) / @count) * 360deg;
+  @x: (@width_outer - @width_inner) * 0.5;
+  @y: (@height_outer - @height_inner ) * 0.5;
+  transform: rotate(@radian + 90);
+
+  & when (@radian <=90deg) {
+    @rx: cos(@radian) * @r;
+    @ry: sin(@radian) * @r;
+    left: @x - @rx;
+    top: @y - @ry;
+  }
+
+  & when (@radian > 90deg) and (@radian <=180deg) {
+    @rx: cos(180 - @radian) * @r;
+    @ry: sin(180 - @radian) * @r;
+    left: @x + @rx;
+    top: @y - @ry;
+  }
+
+  & when (@radian > 180deg) and (@radian <=270deg) {
+    @rx: cos(@radian - 180) * @r;
+    @ry: sin(@radian - 180) * @r;
+    left: @x + @rx;
+    top: @y + @ry;
+  }
+
+  & when (@radian > 270deg) and (@radian <=360deg) {
+    @rx: cos(360 - @radian) * @r;
+    @ry: sin(360 - @radian) * @r;
+    left: @x - @rx;
+    top: @y + @ry;
+  }
+}
+
+
+.animate-prop(@rate){
+  opacity: @rate;
+  // background-color: rgba(0, 0, 0, @rate);
+  // width:  @rate * @small_w;
+  // transform: scale(@rate * 1)
+}
+
+.animate-item(@n, @count, @name ) {
+  @delay:(@n / @count) * @duration;
+  animation: @name @duration @delay infinite;
+}
+
+.keyframes(@count, @name) {
+  @keyframes @name {
+    each(range(@count), {
+      @rate: (@value / @count);
+      @step: @rate * 100%;
+      @{step} {
+        .animate-prop(@rate)
+      }
+    })
+  }
+
+}
+
+.keyframes(@count, @name);
+
+.loading {
+  &>div {
+    // border: 1px solid #f00;
+    width: @size;
+    height: @size;
+    margin: 0 auto;
+    position: relative;
+
+    &>div {
+      box-sizing: border-box;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: @small_w;
+      height: @small_h;
+      border-radius: 9999px;
+      transform-origin: center;
+      display: none;
+      // box-shadow: 0 0 4px rgba(0, 0, 0, 1);
+      // .animate-prop(1)
+      background-color: rgba(0, 0, 0, 1);
+    }
+
+    each(range(@count), {
+      div:nth-child(@{value}) {
+        display: block;
+        .position(@value, @count, @r, @size, @small_w, @size, @small_h);
+        .animate-item(@value, @count, @name);
+      }
+    })
+  }
+}
